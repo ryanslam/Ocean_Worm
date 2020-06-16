@@ -1,0 +1,20 @@
+INSTRUCTIONS:
+    - Can move mouse around to drag and interact with worm
+    - When holding mouse down the user can drag the vortex around
+        - While clicking the user can
+            * Press control to spawn my fish
+            * Speak into the mic to spawn more fish
+Resources:
+    - Flock and Boid class were taken from p5.js examples
+        * Altered the size and shape to mimic a school of fish
+        * Adapted these classes to work with react
+Known Issues:
+    - Mic input isn't reliable on google chrome
+        * Fixes:
+            - Use firefox browswer instead
+            - Hotswap code by commenting and resaving the sketch.js file
+Need:
+    - React.js
+    - react-wrapper-p5
+    - p5-react
+"npm start" to run

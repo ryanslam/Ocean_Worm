@@ -1,0 +1,152 @@
+  // SPAZ WORM CODE USE WITH CAUTION
+  // p.randomX = () =>{
+  //   let step = 100
+  //   let lerp = 2
+  //   let deltaXPos = p.windowWidth - p.startPosX;
+  //   let deltaXNeg = p.startPosX
+
+  //   let minDelta = Math.min(deltaXPos, deltaXNeg)
+  //   let ratio = minDelta / p.windowWidth
+
+  //   let rand = p.random()
+  //   if (rand > ratio) {
+  //     if (deltaXPos < deltaXNeg) {
+  //       p.startPosX = p.lerp(p.startPosX, p.startPosX - step, lerp);
+  //     } else {
+  //       p.startPosX = p.lerp(p.startPosX, p.startPosX + step, lerp);
+  //     }
+  //   } else {
+  //     if (deltaXPos < deltaXNeg) {
+  //       p.startPosX = p.lerp(p.startPosX, p.startPosX + step, lerp);
+  //     } else {
+  //       p.startPosX = p.lerp(p.startPosX, p.startPosX - step, lerp);
+  //     }
+  //   }
+  //   return p.startPosX
+  // }
+
+  // p.randomY = () =>{
+  //   let step = 100
+  //   let lerp = 2
+  //   let deltaYPos = p.windowHeight - p.startPosY;
+  //   let deltaYNeg = p.startPosY
+
+  //   let minDelta = Math.min(deltaYPos, deltaYNeg)
+  //   let ratio = minDelta / p.windowHeight
+  
+  //   let rand = p.random()
+
+  //   if (rand > ratio) {
+  //       if (deltaYPos < deltaYNeg) {
+  //         p.startPosY = p.lerp(p.startPosY, p.startPosY - step, lerp);
+  //       } else {
+  //         p.startPosY = p.lerp(p.startPosY, p.startPosY + step, lerp);
+  //       }
+  //   } else {
+  //     if (deltaYPos < deltaYNeg) {
+  //       p.startPosY = p.lerp(p.startPosY, p.startPosY + step, lerp);
+  //     } else {
+  //       p.startPosY = p.lerp(p.startPosY, p.startPosY - step, lerp);
+  //     }
+  //   }
+  //   return p.startPosY
+  // }
+
+  // Code for wormAI section
+  for (let i = 0; i < segNum; i++) {
+    xAI[i] = 0;
+    yAI[i] = 0;
+  }
+
+  p.makewormAI = (t) =>{ 
+    p.translate(p.windowWidth/2,p.windowHeight/2);
+    p.dragSegmentAI(0, p.x1(t)-p.x2(t), p.y1(t)-p.y2(t));
+
+    p.strokeWeight(8);
+    p.stroke(255);
+    for (let i = 0; i < x.length - 1; i++) {
+      p.dragSegmentAI(i + 1, xAI[i], yAI[i]);
+    }
+  }
+  
+  p.dragSegmentAI = (i, xin, yin) => {
+    const dxAI = xin - xAI[i];
+    const dyAI = yin - yAI[i];
+    const angleAI = p.atan2(dyAI, dxAI);
+    xAI[i] = xin - p.cos(angleAI) * segLength;
+    yAI[i] = yin - p.sin(angleAI) * segLength;
+    p.buildAndColorSegAI(i, 1/2, angleAI, p.color(23, 35, 71), p.color(3, 130, 152), p.color(2, 83, 133));
+    p.buildAndColorSegAI(i, 1, angleAI, p.color(175,78,150), p.color(0,50,100), p.color(68,0,139));
+    p.buildAndColorSegAI(i, 1.5, angleAI, p.color(11, 24, 56), p.color(237, 105, 91),  p.color(251, 227, 132));
+  };
+
+  p.buildAndColorSegAI = (i, mult, angle, c1, c2, c3) =>{
+    p.stroke(c1);
+    p.segment(xAI[i]*mult, yAI[i]*mult, angle);
+    p.stroke(c2);
+    p.segment(xAI[i]*mult, yAI[i]*mult, angle*2);
+    p.stroke(c3);
+    p.segment(xAI[i]*mult, yAI[i]*mult, angle/2);
+  };
+  
+
+  // p.x1 = (t) =>{
+  //   return p.sin(t/10)*125+p.sin(t/20)*125+p.sin(t/30)*125;
+  // }
+
+  // p.y1 = (t) =>{
+  //   return p.cos(t/10)*125+p.cos(t/20)*125+p.cos(t/30)*125;
+  // }
+  
+  // p.x2 = (t) =>{
+  //   return p.sin(t/15)*125+p.sin(t/25)*125+p.sin(t/35)*125;
+  // }
+  
+  // p.y2 = (t) =>{
+  //   return p.cos(t/15)*125+p.cos(t/25)*125+p.cos(t/35)*125;
+  // }
+
+  // Code for worm section
+  for (let i = 0; i < segNum; i++) {
+    x[i] = 0;
+    y[i] = 0;
+  }
+
+  // p.makeworm = () =>{
+    
+  //   p.dragSegment(0, p.mouseX, p.mouseY);
+
+  //   p.strokeWeight(8);
+  //   p.stroke(255);
+  //   for (let i = 0; i < x.length - 1; i++) {
+  //     p.dragSegment(i + 1, x[i], y[i]);
+  //   }
+  // };
+
+  // p.dragSegment = (i, xin, yin) => {
+  //   const dx = xin - x[i];
+  //   const dy = yin - y[i];
+  //   const angle = p.atan2(dy, dx);
+  //   x[i] = xin - p.cos(angle) * segLength;
+  //   y[i] = yin - p.sin(angle) * segLength;
+  //   p.buildAndColorSeg(i, 1, angle,p.color(255),p.color(255),p.color(255));
+  // };
+
+  // p.buildAndColorSeg = (i, mult, angle, c1, c2, c3) =>{
+  //   p.stroke(c1);
+  //   p.segment(x[i]*mult, y[i]*mult, angle);
+  //   p.stroke(c2);
+  //   p.segment(x[i]*mult, y[i]*mult, angle*2);
+  //   p.stroke(c3);
+  //   p.segment(x[i]*mult, y[i]*mult, angle/2);
+  // }
+
+  p.segment = (x, y, a) => {
+    p.push();
+    p.translate(x, y);
+    p.rotate(a);
+    p.line(0, 0, segLength, 0);
+    p.pop();
+  };
+
+};
